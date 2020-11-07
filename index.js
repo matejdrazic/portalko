@@ -7,21 +7,35 @@ const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 window.onload = function(){
     var table = document.getElementById("table");
     var counter = 0;
+    var cell1;
+    var cell2;
+    var cell3;
+    var cell4;
+    var row;
  
-let parser = new RSSParser();
+let parser = new RSSParser({
+  customFields: {
+    item: ['content', 'contentSnippet'],
+  }
+});
 parser.parseURL(CORS_PROXY + 'https://www.index.hr/rss', function(err, feed) {
   if (err) throw err;
-  console.log(feed.title);
+  var naslov = document.getElementById("naslov");
+  naslov.innerHTML = feed.title;
   feed.items.forEach(function(entry) {
-    console.log(entry.title + ':' + entry.link);
-    var row = table.insertRow(counter);
+  
+    row = table.insertRow(counter);
 
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
+    cell1 = row.insertCell(0);
+    cell2 = row.insertCell(1);
+    cell3 = row.insertCell(2);
+    cell4 = row.insertCell(3);
     
     cell1.innerHTML = entry.title;
-    cell2.innerHTML = entry.link;
-
+    cell2.innerHTML = entry.guid;
+    cell3.innerHTML = entry.categories;
+    cell4.innerHTML = entry.content;
+ 
     counter++;
   })
 });
