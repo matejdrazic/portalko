@@ -1,2 +1,2 @@
-//www.telegram.hr/feed
-//www.index.hr/rss
+https://www.telegram.hr/feed
+https://www.index.hr/rss
