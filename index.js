@@ -20,10 +20,10 @@ window.onload = async function() {              //async - sluzi za obiljezavanje
   
   try {                                           // u bloku try navodi se kod koji potencijalno dovodi do iznimke
     const promise = await hello(userChoice);                 // await - koristi se za funkcije koje mogu trajati dugo
-    console.log(promise);
+
     promise.forEach(function (arrayItem) {        // ako ne dode do oznimke u bloku try  ne izvodi se kod u bloku catch
       row = table.insertRow(counter);
-      console.log(arrayItem);
+      console.log("zasto zavrsis odi");
       cell1 = row.insertCell(0);
       cell2 = row.insertCell(1);
       cell3 = row.insertCell(2);
