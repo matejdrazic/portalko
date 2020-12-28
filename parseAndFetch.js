@@ -13,7 +13,7 @@ function hello(odabraniPortali) {
 
   return new Promise((resolve, reject) => {                 //promises su programski entiteti unutar kojih se postavlja posao koji moze potrajati      
     for (let i = 0; i < odabraniPortali.length; i++) {
-      console.log(odabraniPortali[i]);                                                    //posao se obavlja unutar izvršne funkcije, nakon što je posao završen obećanje prelazi u stanje uspjeha ili neuspjeha
+      //console.log(odabraniPortali[i]);                                                    //posao se obavlja unutar izvršne funkcije, nakon što je posao završen obećanje prelazi u stanje uspjeha ili neuspjeha
       parser.parseURL(CORS_PROXY + odabraniPortali[i], function (err, feed) {
 
         if (err)
@@ -32,7 +32,7 @@ function hello(odabraniPortali) {
 
         // oni moraju risit izgled stranice, kategorije, i ono da korisnik na početku odabire 'ticka' stranice!
         // mi sutra moramo filtriranje rišit
-        if (broj == odabraniPortali.length-1) {
+        if (broj == odabraniPortali.length - 1) {
           if (1 != 0)
             resolve(articles)
           else
