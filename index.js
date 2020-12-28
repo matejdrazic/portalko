@@ -7,18 +7,18 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
   let cell3;
   let cell4;
   let row;
-  let categoryButtonPressed = "Sport";
+  let categoryButtonPressed = ["Sport", "Nogomet", "Košarka"];
 
   let portali = {
     Index: 'https://www.index.hr/rss',
-    Telegram: 'https://www.telegram.hr/feed',
+    Telegram: ['https://www.telegram.hr/feed', 'https://telesport.telegram.hr/feed/'],
     sata24: ['https://www.24sata.hr/feeds/aktualno.xml', 'https://www.24sata.hr/feeds/najnovije.xml', 'https://www.24sata.hr/feeds/news.xml', 'https://www.24sata.hr/feeds/show.xml', 'https://www.24sata.hr/feeds/sport.xml', 'https://www.24sata.hr/feeds/lifestyle.xml', 'https://www.24sata.hr/feeds/tech.xml', 'https://www.24sata.hr/feeds/fun.xml'],
     DnevnikHr: 'https://dnevnik.hr/assets/feed/articles',
     Dnevno: 'https://www.dnevno.hr/feed/',
   }
 
-  let userChoice = [portali.Telegram, portali.Dnevno];
-
+  let userChoice = [portali.Dnevno, portali.sata24[4]];
+  console.log(userChoice);
   try {                                           // u bloku try navodi se kod koji potencijalno dovodi do iznimke
     const promise = await hello(userChoice);                 // await - koristi se za funkcije koje mogu trajati dugo
 

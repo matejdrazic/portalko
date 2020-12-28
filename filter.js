@@ -5,7 +5,7 @@ function filter(choosenCategory, promise) {
     let filtriraniClanci = [];
 
     for (let i = 0; i < promise.length; i++) { 
-        if (promise[i].category[0] == choosenCategory) {
+        if (promise[i].category[0] == choosenCategory[0] || promise[i].category[0] == choosenCategory[1] || promise[i].category[0] == choosenCategory[2]) {
             let filtriraniClanak = {
                 "title": promise[i].title,
                 "category": promise[i].category,
