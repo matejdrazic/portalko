@@ -32,19 +32,16 @@ function hello(odabraniPortali) {
 
         // oni moraju risit izgled stranice, kategorije, i ono da korisnik na početku odabire 'ticka' stranice!
         // mi sutra moramo filtriranje rišit
-
-        if (broj > 0) {
+        if (broj == odabraniPortali.length-1) {
           if (1 != 0)
             resolve(articles)
           else
             reject("Empty articles")
         }
-
         broj++;
-      });
-
+      })
     }
-  })
+  });
 
 }
 
