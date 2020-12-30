@@ -7,7 +7,6 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
   let cell3;
   let cell4;
   let row;
-  let categoryButtonPressed = ["Sport", "Nogomet", "Košarka"];
 
   let portali = {
     Index: 'https://www.index.hr/rss',
@@ -17,52 +16,45 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
     Dnevno: 'https://www.dnevno.hr/feed/',
   }
 
-  let userChoice = [portali.Dnevno, portali.sata24[4]];
+  let userChoice = [portali.Dnevno, portali.Index];
   console.log(userChoice);
-  try {                                           // u bloku try navodi se kod koji potencijalno dovodi do iznimke
-    const promise = await hello(userChoice);                 // await - koristi se za funkcije koje mogu trajati dugo
+  try {                                          
+    const database = firebase.database();
 
-    if (categoryButtonPressed != null) {
-      let odabraniClanci = filter(categoryButtonPressed, promise);
-      odabraniClanci.forEach(function (arrayItem) {        // ako ne dode do oznimke u bloku try  ne izvodi se kod u bloku catch
+    // ODI SAN NAPRAVIA DA SE VIJESTI U BAZU ŠALJU SVAKO 10 MINUTI  
+    const promise = await hello(userChoice);                
 
-        row = table.insertRow(counter);
-        cell1 = row.insertCell(0);
-        cell2 = row.insertCell(1);
-        cell3 = row.insertCell(2);
-        cell4 = row.insertCell(3);
+    promise.forEach(function (arrayItem) {      
 
-        cell1.innerHTML = arrayItem.title;
-        cell2.innerHTML = arrayItem.link;
-        cell3.innerHTML = arrayItem.category;
-        cell4.innerHTML = arrayItem.content;
-
-        counter++;
+      database.ref('vijesti/' + counter).set({
+        naslov: arrayItem.title,
+        link: arrayItem.link,
+        kategorija: arrayItem.category,
+        kontent: arrayItem.content,
       });
 
-    }
-    else {
-      //console.log(promise);
-      //console.log(promise.length);
+      row = table.insertRow(counter);
+      cell1 = row.insertCell(0);
+      cell2 = row.insertCell(1);
+      cell3 = row.insertCell(2);
+      cell4 = row.insertCell(3);
 
-      promise.forEach(function (arrayItem) {        // ako ne dode do oznimke u bloku try  ne izvodi se kod u bloku catch
-
-        row = table.insertRow(counter);
-        cell1 = row.insertCell(0);
-        cell2 = row.insertCell(1);
-        cell3 = row.insertCell(2);
-        cell4 = row.insertCell(3);
-
-        cell1.innerHTML = arrayItem.title;
-        cell2.innerHTML = arrayItem.link;
-        cell3.innerHTML = arrayItem.category;
-        cell4.innerHTML = arrayItem.content;
-
-        counter++;
-
+      var getNews = database.ref('vijesti/' + counter);
+      getNews.on('value', (snapshot) => {
+        var data = snapshot.val();
+        cell1.innerHTML = data.naslov;
+        cell2.innerHTML = data.kategorija;
+        cell3.innerHTML = data.link;
+        cell4.innerHTML = data.kontent;
       });
-    }
+
+      counter++;
+    });
+
   } catch (error) {                               //ako dode do iznimke u bloku try, preskače se ostatak bloka try i prelazi u blok catch
     console.log("Error: " + error)
   }
+
+
+
 }
