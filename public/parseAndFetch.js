@@ -1,7 +1,11 @@
+// ovaj parseAndFetch bi trebalo premistit u bekend da server sam parsira i šalje u bazu a da korisnik samo povlači iz baze
+
 function hello(odabraniPortali) {
   const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
   let articles = [];
+
+  console.log("javljam se iz hello-a");
 
   let broj = 0;
 
@@ -30,8 +34,6 @@ function hello(odabraniPortali) {
           articles.push(article);
         }
 
-        // oni moraju risit izgled stranice, kategorije, i ono da korisnik na početku odabire 'ticka' stranice!
-        // mi sutra moramo filtriranje rišit
         if (broj == odabraniPortali.length - 1) {
           if (1 != 0)
             resolve(articles)

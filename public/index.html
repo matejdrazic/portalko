@@ -4,29 +4,25 @@
     <meta charset="utf-8">
     <title>Portalko - deploy</title>
     <script src=".\node_modules\rss-parser\dist\rss-parser.min.js"></script>
-    <script src=".\filter.js"></script>
+    <script src=".\bekend.js"></script>
     <script src=".\parseAndFetch.js"></script>
     <script src=".\index.js"></script>
 </head>
 
 <body>
-    <h1 id="naslov">Portalko</h1>
+    <button id = "button">Osvježi</button>    
     <table id="table" style="width:100%">
 
     </table>
 
     <!--OVO JE ZA POVEZIVANJE NA FIREBASE, NE DIRAJ NIŠTA-->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-functions.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
 
     <script>
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         var firebaseConfig = {
             apiKey: "AIzaSyBBJUgei9PSULAKEP5bPeRxNFF5TNDfpDw",
             authDomain: "portalko-63ded.firebaseapp.com",
