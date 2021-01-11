@@ -19,6 +19,8 @@ function hello(odabraniPortali) {
         if (err)
           throw err;
 
+        //console.log(feed.items);
+
         for (let i = 0; i < feed.items.length; i++) {
           let article = {
             "title": feed.items[i].title,

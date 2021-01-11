@@ -2,11 +2,13 @@
 window.onload = async function () {              //async - sluzi za obiljezavanje funkcija koje sadrze pozive s await
   let table = document.getElementById("table");
   let counter = 0;
-  let cell1;
-  let cell2;
-  let cell3;
-  let cell4;
   let row;
+  let picture;
+  let content;
+  let title;
+  let paragraph;
+  let guid;
+  let category;
 
   let portali = {
     Index: 'https://www.index.hr/rss',
@@ -26,6 +28,8 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
 
     promise.forEach(function (arrayItem) {      
 
+      //console.log(arrayItem.content);
+
       database.ref('vijesti/' + counter).set({
         naslov: arrayItem.title,
         link: arrayItem.link,
@@ -33,19 +37,43 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
         kontent: arrayItem.content,
       });
 
-      row = table.insertRow(counter);
-      cell1 = row.insertCell(0);
-      cell2 = row.insertCell(1);
-      cell3 = row.insertCell(2);
-      cell4 = row.insertCell(3);
+      row = document.createElement("div");
+      row.classList = "clanak";
+      table.appendChild(row);
+
+      picture = document.createElement("div");
+      picture.id = "slika-clanka";
+      row.appendChild(picture);
+
+      content = document.createElement("div");
+      content.id = "sadrzaj-clanka";
+      row.appendChild(content);
+
+      title = document.createElement("h2");
+      title.id = "naslov-clanka";
+      content.appendChild(title);
+
+      paragraph = document.createElement("p");
+      paragraph.id = "opis-clanka";
+      content.appendChild(paragraph);
+
+      guid = document.createElement("a");
+      guid.id = "link-clanka";
+      content.appendChild(guid);
+
+      category = document.createElement("small");
+      category.id = "kategorija-clanka";
+      content.appendChild(category);
+
 
       var getNews = database.ref('vijesti/' + counter);
       getNews.on('value', (snapshot) => {
         var data = snapshot.val();
-        cell1.innerHTML = data.naslov;
-        cell2.innerHTML = data.kategorija;
-        cell3.innerHTML = data.link;
-        cell4.innerHTML = data.kontent;
+        title.innerHTML = data.naslov;
+        category.innerHTML = data.kategorija;
+        guid.innerHTML = data.link;
+        picture.innerHTML = data.kontent;
+        paragraph.innerHTML = picture.textContent;
       });
 
       counter++;
@@ -55,6 +83,19 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
     console.log("Error: " + error)
   }
 
+  document.querySelector("#search-box").addEventListener("keyup", e => {
+    let query = e.currentTarget.value;
+    //console.log(query.toUpperCase());
 
+    let cards = document.querySelectorAll(".clanak #sadrzaj-clanka");
+    for( let card of cards) {
+      //console.log(card.textContent.toUpperCase());
+        if (card.textContent.indexOf(query >= 0)) {
+            card.parentElement.style.display = "block"
+        } else {
+            card.parentElement.style.display = "none";
+        }
+    }
+})
 
 }
