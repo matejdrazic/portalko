@@ -7,9 +7,12 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
   let cell3;
   let cell4;
   let row;
-  //let x = document.getElementById("naslov");
 
-  const button = document.getElementById("button");
+  const button = document.querySelector("#button");
+  button.addEventListener('click', () => {
+    const f = firebase.functions().httpsCallable('parseAndSave');
+    f();
+  });
 
   let portali = {
     Index: 'https://www.index.hr/rss',
@@ -18,35 +21,28 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
     DnevnikHr: 'https://dnevnik.hr/assets/feed/articles',
     Dnevno: 'https://www.dnevno.hr/feed/',
   }
-
-  let userChoice = [portali.Dnevno, portali.Index];
+  
   try {
     const database = firebase.database();
 
-    let promise = await hello(userChoice);
-
-    promise.forEach(function (arrayItem) {
-
-      baza.ref('vijesti/' + counter).set({
-        naslov: vijest.title,
-        link: vijest.link,
-        kategorija: vijest.category,
-        kontent: vijest.content,
-      });
+    row = table.insertRow(counter);
+    cell1 = row.insertCell(0);
+    cell2 = row.insertCell(1);
+    cell3 = row.insertCell(2);
+    cell4 = row.insertCell(3);
 
     var getNews = database.ref('vijesti/' + counter);
-    getNews.on('value', (snapshot) => {
+
+    //ne on nego ono da jednon dohvati
+    getNews.once('value').then((snapshot) => {
       var data = snapshot.val();
       cell1.innerHTML = data.naslov;
       cell2.innerHTML = data.kategorija;
       cell3.innerHTML = data.link;
-      cell4.innerHTML = data.kontent;
+      cell4.innerHTML = data.content;
     });
-    counter++;
-
-  });
-  } catch (error) {                               //ako dode do iznimke u bloku try, preskače se ostatak bloka try i prelazi u blok catch
-    console.log("Error: " + error)
-  }
+} catch (error) {
+  console.log("Error: " + error)
+}
 
 }
