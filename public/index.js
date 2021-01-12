@@ -1,6 +1,7 @@
 //triba učitat prvo index.html inače se neće ovo ispisat
 window.onload = async function () {              //async - sluzi za obiljezavanje funkcija koje sadrze pozive s await
   let table = document.getElementById("table");
+  let counter = 0;
   let row;
   let picture;
   let content;
@@ -9,16 +10,12 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
   let guid;
   let category;
 
-  try {
     const database = firebase.database();
-
-    const promise = await hello(database);
-
-    //console.log(promise);
+    dohvatDesetClanaka();
+    async function dohvatDesetClanaka() {
+    const promise = await hello(database, counter);
                                                  
     promise.forEach(function (arrayItem) {
-
-      //console.log(arrayItem);
 
       row = document.createElement("div");
       row.classList = "clanak";
@@ -53,9 +50,8 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
       guid.innerHTML = arrayItem.link;
       picture.innerHTML = arrayItem.content;
       paragraph.innerHTML = picture.textContent;
+      counter++;
     });
-  } catch (error) {
-    console.log("Error: " + error);
   }
 
   document.querySelector("#search-box").addEventListener("keyup", e => {
@@ -70,6 +66,10 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
       }
 
     }
+  });
+
+  let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
+    dohvatDesetClanaka();
   });
 
 }
