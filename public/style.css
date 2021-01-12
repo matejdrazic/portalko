@@ -101,6 +101,11 @@ img {
     justify-self: center;
     background-color: cornsilk;
     margin: 4px 15px 15px 4px;
+    position: static;
+}
+
+#sadrzaj-clanka {
+    margin: 4px 15px 15px 4px;
 }
 
 #slika-clanka {
@@ -110,5 +115,6 @@ img {
 
 #slika-clanke #text {
     justify-self: left;
+    margin: 10px 10px 10px 10px;
 }
 
