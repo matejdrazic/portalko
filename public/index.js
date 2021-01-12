@@ -59,7 +59,7 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
 
     let cards = document.querySelectorAll(".clanak #sadrzaj-clanka");
     for( let card of cards) {
-      if (card.textContent.indexOf(query.toUpperCase()) >= 0){
+      if (card.textContent.toUpperCase().indexOf(query.toUpperCase()) >= 0){
         card.parentElement.style.display = "block";
       } else {
         card.parentElement.style.display = "none";    

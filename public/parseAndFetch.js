@@ -14,7 +14,7 @@ function hello(database, counter) {
         let article = {
           "title" : data.naslov,
           "category" : data.kategorija,
-          "link" :data.link,
+          "link" :  data.link,
           "content" : data.content,
         }
   
