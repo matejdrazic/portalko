@@ -16,6 +16,7 @@ window.onload = async function () {
                                                  
     promise.forEach(function (arrayItem) {
 
+
       row = document.createElement("div");
       row.classList = "clanak";
       table.appendChild(row);
@@ -51,8 +52,7 @@ window.onload = async function () {
       paragraph.innerHTML = picture.textContent;
       counter++;
     });
-  
-} 
+  }
 
   document.querySelector("#search-box").addEventListener("keyup", e => {
     let query = e.currentTarget.value;
@@ -64,11 +64,11 @@ window.onload = async function () {
       } else {
         card.parentElement.style.display = "none";    
       }
-
     }
   });
 
   let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
     dohvatDesetClanaka();
+
   });
 }

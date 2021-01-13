@@ -18,6 +18,23 @@ header{
     padding: 0 10%;
     background-color: #2c3e50;
     justify-content: space-around;
+    position: sticky;
+    top: 0;
+}
+
+#search-container {
+    background-color: white;
+    padding: 0.25em;
+}
+
+#search-container .search-icon {
+    color: black;
+}
+
+#search-box {
+    border: none;
+    outline: none;
+    font-size: 1em;
 }
 
 .logo{
@@ -68,5 +85,38 @@ nav ul li a:hover{
 .login:hover{
     background-color: black;
     color:white;
+}
+
+#table {
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+}
+
+img {
+    width: 450px;
+    height: 300px;
+}
+
+.clanak {
+    display: flex;
+    justify-self: center;
+    background-color: cornsilk;
+    margin: 4px 15px 15px 4px;
+    position: static;
+}
+
+#sadrzaj-clanka {
+    margin: 4px 15px 15px 4px;
+}
+
+#slika-clanka {
+    justify-self: left;
+    font-size: 0;
+}
+
+#slika-clanke #text {
+    justify-self: left;
+    margin: 10px 10px 10px 10px;
 }
 
