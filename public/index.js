@@ -1,5 +1,4 @@
-//triba učitat prvo index.html inače se neće ovo ispisat
-window.onload = async function () {              //async - sluzi za obiljezavanje funkcija koje sadrze pozive s await
+window.onload = async function () {       
   let table = document.getElementById("table");
   let counter = 0;
   let row;
@@ -16,6 +15,7 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
     const promise = await hello(database, counter);
                                                  
     promise.forEach(function (arrayItem) {
+
 
       row = document.createElement("div");
       row.classList = "clanak";
@@ -64,12 +64,11 @@ window.onload = async function () {              //async - sluzi za obiljezavanj
       } else {
         card.parentElement.style.display = "none";    
       }
-
     }
   });
 
   let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
     dohvatDesetClanaka();
-  });
 
+  });
 }

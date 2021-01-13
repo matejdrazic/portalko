@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Portalko - Sign Up</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="signup2.css">
+    </head>
+    <body>
+        <header>
+            <a href="http://localhost:5000/#" class="logo">PORTALKO</a>
+            <nav>
+                <ul>
+                    <li><a href="">News</a></li>
+                    <li><a href="">Show</a></li>
+                    <li><a href="">Sport</a></li>
+                    <li><a href="">Life&Style</a></li>
+                    <li><a href="">Sci/Tech</a></li>
+                    <li><a href="">Viral</a></li>
+                    <li><a href="">Video</a></li>
+                    <li><a href="contact.html" class="contact-header">Contact</a></li>
+                    <li><a href="signup.html" class="login-header">Log In</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper">
+            <div class="title-text">
+                <div class="title login">Login</div>
+                <div class="title signup">Sign Up</div>
+            </div>
+            <div class="form-container">
+                <div class="slide-control">
+                    <input type="radio" name="slider" id="login" checked>
+                    <input type="radio" name="slider" id="signup">
+                    <label for="login" class="slide login">Login</label>
+                    <label for="signup" class="slide signup">Sign Up</label>
+                    <div class="slide-tab"></div>
+                </div>
+                <div class="form-inner">
+                    <form action="#" class="login">
+                        <div class="field">
+                            <input class="email" type="text" placeholder="Email Address" required>
+                        </div>
+                        <div class="field">
+                            <input class="password" type="password" placeholder="Password" required>
+                        </div>
+                        <div class="pass-link"><a href="">Forgot password?</a></div>
+                        <div class="field">
+                            <input class="prijava" type="submit" value="Login">
+                        </div>
+                        <div class="signup-link">Not a member? <a href="">Sign up now</a></div>
+                    </form>
+                    <form action="#" class="signup">
+                        <div class="field">
+                            <input class="emailReg" type="text" placeholder="Email Address" required>
+                        </div>
+                        <div class="field">
+                            <input class="firstPass" type="password" placeholder="Password" required>
+                        </div>
+                        <div class="field">
+                            <input class= "secondPass" type="password" placeholder="Confirm password" required>
+                        </div>
+                        <div class="field">
+                            <input class = "submit" type="submit" value="Sign Up">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            const loginForm = document.querySelector("form.login");
+            const signupForm = document.querySelector("form.signup");
+            const loginBtn = document.querySelector("label.login");
+            const signupBtn = document.querySelector("label.signup");
+            const signupLink = document.querySelector(".signup-link a");
+            const loginText = document.querySelector(".title-text .login");
+            const signupText = document.querySelector(".title-text .signup");
+            signupBtn.onclick = (()=>{
+                loginForm.style.marginLeft = "-50%";
+                loginText.style.marginLeft = "-50%";
+            });
+            loginBtn.onclick = (()=>{
+                loginForm.style.marginLeft = "0%";
+                loginText.style.marginLeft = "0%";
+            });
+            signupLink.onclick = (()=>{
+                signupBtn.click();
+                return false;
+            })
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    
+    
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyBBJUgei9PSULAKEP5bPeRxNFF5TNDfpDw",
+                authDomain: "portalko-63ded.firebaseapp.com",
+                databaseURL: "https://portalko-63ded-default-rtdb.europe-west1.firebasedatabase.app",
+                projectId: "portalko-63ded",
+                storageBucket: "portalko-63ded.appspot.com",
+                messagingSenderId: "718458866025",
+                appId: "1:718458866025:web:71c65df3d9c3d2fa5e95f8",
+                measurementId: "G-H0MPX2ZQQD"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+            const auth = firebase.auth();
+    
+        </script>
+        <script src="./auth.js" ></script>
+    </body>
+</html>
