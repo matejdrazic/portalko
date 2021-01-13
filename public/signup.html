@@ -2,10 +2,6 @@
     <head>
         <meta charset="utf-8">
         <title>Portalko - Sign Up</title>
-        <script src=".\node_modules\rss-parser\dist\rss-parser.min.js"></script>
-        <script src=".\filter.js"></script>
-        <script src=".\parseAndFetch.js"></script>
-        <script src=".\index.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="signup2.css">
     </head>
@@ -42,29 +38,29 @@
                 <div class="form-inner">
                     <form action="#" class="login">
                         <div class="field">
-                            <input type="text" placeholder="Email Address" required>
+                            <input class="email" type="text" placeholder="Email Address" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Password" required>
+                            <input class="password" type="password" placeholder="Password" required>
                         </div>
                         <div class="pass-link"><a href="">Forgot password?</a></div>
                         <div class="field">
-                            <input type="submit" value="Login">
+                            <input class="prijava" type="submit" value="Login">
                         </div>
                         <div class="signup-link">Not a member? <a href="">Sign up now</a></div>
                     </form>
                     <form action="#" class="signup">
                         <div class="field">
-                            <input type="text" placeholder="Email Address" required>
+                            <input class="emailReg" type="text" placeholder="Email Address" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Password" required>
+                            <input class="firstPass" type="password" placeholder="Password" required>
                         </div>
                         <div class="field">
-                            <input type="password" placeholder="Confirm password" required>
+                            <input class= "secondPass" type="password" placeholder="Confirm password" required>
                         </div>
                         <div class="field">
-                            <input type="submit" value="Sign Up">
+                            <input class = "submit" type="submit" value="Sign Up">
                         </div>
                     </form>
                 </div>
@@ -91,5 +87,29 @@
                 return false;
             })
         </script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    
+    
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyBBJUgei9PSULAKEP5bPeRxNFF5TNDfpDw",
+                authDomain: "portalko-63ded.firebaseapp.com",
+                databaseURL: "https://portalko-63ded-default-rtdb.europe-west1.firebasedatabase.app",
+                projectId: "portalko-63ded",
+                storageBucket: "portalko-63ded.appspot.com",
+                messagingSenderId: "718458866025",
+                appId: "1:718458866025:web:71c65df3d9c3d2fa5e95f8",
+                measurementId: "G-H0MPX2ZQQD"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+            const auth = firebase.auth();
+    
+        </script>
+        <script src="./auth.js" ></script>
     </body>
 </html>
