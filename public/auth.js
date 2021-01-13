@@ -4,9 +4,6 @@ const registration = document.querySelector('.submit').addEventListener('click',
     const passOne = document.querySelector('.firstPass').value;
     const passTwo = document.querySelector('.secondPass').value;
 
-    console.log(emailReg);
-    console.log(passOne);
-
     auth.createUserWithEmailAndPassword(emailReg, passOne).then(cred => {
         
         

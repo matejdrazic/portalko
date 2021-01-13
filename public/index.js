@@ -54,7 +54,7 @@ window.onload = async function () {
   
 } 
 
-  /* document.querySelector("#search-box").addEventListener("keyup", e => {
+  document.querySelector("#search-box").addEventListener("keyup", e => {
     let query = e.currentTarget.value;
 
     let cards = document.querySelectorAll(".clanak #sadrzaj-clanka");
@@ -66,9 +66,9 @@ window.onload = async function () {
       }
 
     }
-  }); */
+  });
 
-  /* let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
+  let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
     dohvatDesetClanaka();
-  }); */
-
+  });
+}
