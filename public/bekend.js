@@ -1,7 +1,7 @@
 let Parser = require('rss-parser');
 let parser = new Parser({
   customFields: {
-    item: ['content'],
+    item: ['content', 'enclosure'],
   }
 });
 
@@ -18,9 +18,11 @@ async function check() {
   let feed2 = await parser.parseURL(portali.Dnevno);
   let feed3 = await parser.parseURL(portali.Telegram[0]);
   let feed4 = await parser.parseURL(portali.Telegram[1]);
+  let feed5 = await parser.parseURL(portali.sata24[0]);
+  let feed6 = await parser.parseURL(portali.sata24[4]);
 
   feed.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.categories)
+    console.log(item.title + ':' + item.link + ':' + item.content);
   });
 
   feed2.items.forEach(item => {
@@ -33,6 +35,14 @@ async function check() {
 
   feed4.items.forEach(item => {
     console.log(item.title + ':' + item.link + ':' + item.enclosure);
+  });
+
+  feed5.items.forEach(item => {
+    console.log(item.title + ':' + item.link + ':' + item.content);
+  });
+
+  feed6.items.forEach(item => {
+    console.log(item.title + ':' + item.link + ':' + item.content);
   });
 
 }
