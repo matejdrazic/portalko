@@ -36,78 +36,78 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
         let feed7 = await parser.parseURL(portali.sata24[6]);
 
         feed.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed2.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed3.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed4.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: "Sport",
                 content: item.enclosure,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed5.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: "Vijesti",
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed6.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: "Sport",
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });
 
         feed7.items.forEach(item => {
-            admin.database().ref('vijesti/' + counter).set({
+            admin.database().ref('vijesti/').push({
                 naslov: item.title,
                 link: item.link,
                 kategorija: "Tech",
                 content: item.content,
-                pubdate: item.pubDate
+                pubdate: new Date(item.pubDate).getTime()
             });
             counter++;
         });

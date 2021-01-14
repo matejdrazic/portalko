@@ -24,43 +24,49 @@ async function check() {
   let feed7 = await parser.parseURL(portali.sata24[6]); 
 
   feed.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed2.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.categories + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.categories + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed3.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.categories + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.categories + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed4.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.enclosure + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.enclosure + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed5.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed6.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
   });
 
   feed7.items.forEach(item => {
-    console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
+    //console.log(item.title + ':' + item.link + ':' + item.content + ':' + item.pubDate);
     articles.push(item);
+    let datum = new Date(item.pubDate).getTime();
+    console.log(datum);
   });
 
-  articles.sort(function(a,b){
+  /* articles.sort(function(a,b){
     return new Date(b.pubDate) - new Date(a.pubDate);
   });  
+  console.log(articles); */
+
+  /* var someDate = new Date(dateString);
+  someDate = someDate.getTime(); */
 }
 
 check();
