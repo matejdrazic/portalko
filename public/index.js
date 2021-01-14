@@ -1,6 +1,6 @@
 window.onload = async function () {       
   let table = document.getElementById("table");
-  let counter = 0;
+  let counter = 150;
   let row;
   let picture;
   let content;

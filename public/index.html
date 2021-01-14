@@ -27,16 +27,22 @@
                 <li><a href="signup.html" class="login">Log In</a></li>
             </ul>
         </nav>
-        <div id="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-box" placeholder="search"/>
+        <div class="search-container">
+            <input id="search-box" type="text" name="" placeholder="Type to search">
+            <a class="search-btn" href="#">
+            <i class="fas fa-search"></i>
+
+            </a>
         </div>
+        
     </header>
-    
+    <section>
     <!--<h1 id="naslov">Portalko</h1>-->
     <table id="table" style="width:60%">
 
     </table>
+    </section>
+    <img src="news1.svg" alt="" height="400" width="400" class="svg">
 
     <!--OVO JE ZA POVEZIVANJE NA FIREBASE, NE DIRAJ NIŠTA-->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -65,8 +71,12 @@
 
     </script>
 
+
     <footer>
         <button id="ucitaj-jos">VIŠE ČLANAKA</button>
+        <div class="copyright">
+            <span class="footer-text">Copyright &copy;2021 Portalko. Designed by <span id="designed">TEAM PORTALKO <i class="fas fa-code"></i></span></span>
+        </div>
     </footer>
 
 </body>
