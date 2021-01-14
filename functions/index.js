@@ -5,17 +5,10 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-
-exports
-
-
-
-
-
 // OVA FUNKCIJA JE VEĆ DEPLOY-ANA I IZVODI SE SVAKO PO URE
 // ZASAD PARSIRA SAMO 4 PORTALA AL CILJ JE DA POSLI PARSIRA SVE MOGUĆE PORTALE
 // ZAKOMENTIRANA JE DA JE NEBI OPET DEPLOY-A
-/* exports.parseAndSave = functions.pubsub.schedule('every 30 minutes').onRun((context) => {
+exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
     let Parser = require('rss-parser');
     let parser = new Parser({
         customFields: {
@@ -38,6 +31,9 @@ exports
         let feed2 = await parser.parseURL(portali.Dnevno);
         let feed3 = await parser.parseURL(portali.Telegram[0]);
         let feed4 = await parser.parseURL(portali.Telegram[1]);
+        let feed5 = await parser.parseURL(portali.sata24[2]);
+        let feed6 = await parser.parseURL(portali.sata24[4]);
+        let feed7 = await parser.parseURL(portali.sata24[6]);
 
         feed.items.forEach(item => {
             admin.database().ref('vijesti/' + counter).set({
@@ -45,6 +41,7 @@ exports
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
+                pubdate: item.pubDate
             });
             counter++;
         });
@@ -55,6 +52,7 @@ exports
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
+                pubdate: item.pubDate
             });
             counter++;
         });
@@ -65,6 +63,7 @@ exports
                 link: item.link,
                 kategorija: item.categories,
                 content: item.content,
+                pubdate: item.pubDate
             });
             counter++;
         });
@@ -75,10 +74,44 @@ exports
                 link: item.link,
                 kategorija: "Sport",
                 content: item.enclosure,
+                pubdate: item.pubDate
+            });
+            counter++;
+        });
+
+        feed5.items.forEach(item => {
+            admin.database().ref('vijesti/' + counter).set({
+                naslov: item.title,
+                link: item.link,
+                kategorija: "Vijesti",
+                content: item.content,
+                pubdate: item.pubDate
+            });
+            counter++;
+        });
+
+        feed6.items.forEach(item => {
+            admin.database().ref('vijesti/' + counter).set({
+                naslov: item.title,
+                link: item.link,
+                kategorija: "Sport",
+                content: item.content,
+                pubdate: item.pubDate
+            });
+            counter++;
+        });
+
+        feed7.items.forEach(item => {
+            admin.database().ref('vijesti/' + counter).set({
+                naslov: item.title,
+                link: item.link,
+                kategorija: "Tech",
+                content: item.content,
+                pubdate: item.pubDate
             });
             counter++;
         });
 
     }
     check();
-}); */
+});
