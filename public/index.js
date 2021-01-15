@@ -13,6 +13,7 @@ window.onload = async function () {
   const database = firebase.database();
 
   database.ref('vijesti')
+  .limitToFirst(240)
   .orderByChild('pubdate')
   .once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
@@ -106,7 +107,20 @@ window.onload = async function () {
     }
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Magazin')
+        if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+          News(clanak.val());
+      });
+    });
+  });
+
+  document.querySelector('#Vijesti').addEventListener('click', () => {
+    var paras = document.getElementsByClassName('clanak');
+    while (paras[0]) {
+      paras[0].parentNode.removeChild(paras[0]);
+    }
+    database.ref('vijesti').once("value", function (snapshot) {
+      snapshot.forEach((clanak)=>{
+        if(clanak.val().kategorija == 'Vijesti')
           News(clanak.val());
       });
     });
@@ -123,10 +137,6 @@ window.onload = async function () {
         card.parentElement.style.display = "none";
       }
     }
-  });
-
-  let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', () => {
-    News(Kategorija);
   });
 
 
