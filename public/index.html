@@ -24,14 +24,16 @@
                 <li><a href="">Viral</a></li>
                 <li><a href="">Video</a></li>
                 <li><a href="contact.html" class="contact">Contact</a></li>
-                <li><a href="signup.html" class="login">Log In</a></li>
+                <li class="logged-out" style="display: none;"><a href="signup.html" class="login">Login</a></li>
+                <li class="logged-in" style="display: none;"><a href="#" class="logout" id="logout">Logout</a></li>
+                <li class="logged-in" style="display: none;"><a id="button" class="button1">Izbor portala</a></li>
             </ul>
         </nav>
+
         <div class="search-container">
             <input id="search-box" type="text" name="" placeholder="Type to search">
             <a class="search-btn" href="#">
             <i class="fas fa-search"></i>
-
             </a>
         </div>
         
@@ -41,6 +43,24 @@
     <table id="table" style="width:60%">
 
     </table>
+
+    <div class="bg-modal">
+        <div class="modal-content">
+            <i class="fa fa-times delete-button clickable-icon"></i>
+            <h2>Odaberite portale :</h2>
+            <label for="portal1">
+            <input type="checkbox" id="portal" class="Dnevno" value="portal1">
+            Dnevno.hr</label>
+            <label for="portal2">
+            <input type="checkbox" id="portal" class="Index" value="portal2">
+            Index.hr</label>
+            <label for="portal3">
+            <input type="checkbox" id="portal" class="Telegram" value="portal3">
+            Telegram.hr</label>
+            <a href="" class="button">Submit</a>
+        </div>
+    </div>
+
     </section>
     <img src="news1.svg" alt="" height="400" width="400" class="svg">
 
@@ -50,7 +70,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 
     <script>
         // Your web app's Firebase configuration
@@ -69,8 +89,12 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
 
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
     </script>
 
+    <!--<script src=".\auth.js"></script>;-->
 
     <footer>
         <button id="ucitaj-jos">VIŠE ČLANAKA</button>

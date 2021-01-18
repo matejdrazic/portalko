@@ -10,6 +10,7 @@
 a{
     text-decoration: none;
 }
+
 li{
     list-style-type: none;
 }
@@ -52,7 +53,8 @@ nav ul li a:hover{
     background-color: #dc7633;
     border-radius: 0.8em;
 }
-.login{
+
+.login, .logout{
     background-color: white;
     color: black;
     border-radius: 0.8em;
@@ -69,6 +71,11 @@ nav ul li a:hover{
 }
 
 .login:hover{
+    background-color: black;
+    color:white;
+}
+
+.logout:hover{
     background-color: black;
     color:white;
 }
@@ -181,18 +188,22 @@ section .container .contact-form .form-box{
     flex-wrap: wrap;
     padding-top: 30px;
 }
+
 section .container .contact-form .form-box .input-box{
     position: relative;
     margin: 0 0 35px 0;
 
 }
+
 section .container .contact-form .form-box .input-box.w50{
     width: 47%;
 
 }
+
 section .container .contact-form .form-box .input-box.w100{
     width: 100%;
 }
+
 section .container .contact-form .form-box .input-box input,
 section .container .contact-form .form-box .input-box textarea{
     width: 100% !important;
@@ -209,6 +220,7 @@ section .container .contact-form .form-box .input-box textarea{
 section .container .contact-form .form-box .input-box textarea{
     min-height: 120px;
 }
+
 section .container .contact-form .form-box .input-box span{
     position: absolute;
     left: 0;
@@ -239,6 +251,7 @@ section .container .contact-form .form-box .input-box input[type="submit"]{
     max-width: 150px;
     padding: 12px;
 }
+
 section .container .contact-form .form-box .input-box input[type="submit"]:hover{
     background-color: #dc7633;
 }

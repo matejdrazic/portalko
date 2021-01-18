@@ -38,3 +38,39 @@ $(document).ready(function (){
         }
      })
 })
+
+//logout
+const logout = document.getElementById('logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  auth.signOut();
+});
+
+
+//skrivanje i stvaranje elemenata ovisno o statusu loggedin/loggedout
+const loggedOutLink = document.querySelector('.logged-out');
+const loggedInLink = document.querySelector('.logged-in');
+
+
+//listen for auth status changes
+auth.onAuthStateChanged(user => {
+  //console.log(user);
+  if (user) {
+    console.log('user logged in:', user.email)
+    setupUI(user);
+  } else {
+    console.log('user logged out');
+    setupUI();
+  }
+});
+
+const setupUI = (user) => {
+  if(user) {
+    // toggle UI elements
+    loggedInLink.style.display = 'block';
+    loggedOutLink.style.display = 'none';
+  } else {
+    loggedInLink.style.display = 'none';
+    loggedOutLink.style.display = 'block';
+  }
+}
