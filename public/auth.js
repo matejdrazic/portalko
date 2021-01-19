@@ -1,28 +1,3 @@
-//get data firestore
-/*db.collection('portali').get().then(snapshot => { 
-    //console.log(snapshot.docs);
-    setupGuides(snapshot.docs);
-});
-
-const setupGuides = (data) => {
-    let html = '';
-    data.forEach(doc => {
-      const guide = doc.data();
-      console.log(guide);
-      const li = `
-      <li>
-        <div>${guide.title}</div>
-        <div>${guide.content}</div>
-      </li>
-      `;
-
-      html += li
-    });
-
-    guidList.innerHTML = html;
-}
-*/
-
 //logout
 const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {

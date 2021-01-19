@@ -7,27 +7,8 @@ window.onload = async function () {
   let paragraph;
   let guid;
   let category;
-  let counter = 0;
-  let articles = [];
 
   const database = firebase.database();
-
-
-
-  /* function get() {
-    return new Promise((resolve, reject) => {
-      database.ref('vijesti').once("value", function (snapshot) {
-        //console.log(snapshot.val());
-        resolve(snapshot.val());
-      });
-    });
-  }
-
-  get().then((data) =>{
-    for (let cl in data)
-    console.log(cl);
-  }); */
-
 
   function News(cl) {
 
@@ -64,7 +45,6 @@ window.onload = async function () {
     guid.innerHTML = cl.link;
     picture.innerHTML = cl.content;
     paragraph.innerHTML = cl.portal;
-
   }
 
   document.querySelector('#Sport').addEventListener('click', () => {
@@ -133,10 +113,6 @@ window.onload = async function () {
     }
   });
 
-  /*let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
-    dohvatDesetClanaka();
-  });*/
-
   //logout
   const logout = document.querySelector('#logout');
   logout.addEventListener('click', (e) => {
@@ -144,11 +120,9 @@ window.onload = async function () {
     setTimeout(function(){ location.reload();}, 50)
   });
 
-  
   //skrivanje i stvaranje elemenata ovisno o statusu loggedin/loggedout
   const loggedOutLink = document.querySelector('.logged-out');
   const loggedInLinks = document.querySelectorAll('.logged-in');
-
 
   //listen for auth status changes
   auth.onAuthStateChanged(user => {
@@ -167,7 +141,6 @@ window.onload = async function () {
           });
         });
       });
-
 
       //spremanje u bazu odabranih portala svaki put kad se stisne submit u formi
       document.querySelector("body > section > div > div > a").addEventListener('click', (e) => {
@@ -211,8 +184,6 @@ window.onload = async function () {
     }
   });
 
-
-
   //funkcija koja miče/dodaje botune ovisno o tome jeli iko logiran
   const setupUI = (user) => {
     if(user) {
@@ -225,7 +196,6 @@ window.onload = async function () {
     }
   }
 
-
   //forma za izbor portala
   document.getElementById('button').addEventListener('click', function() {
     document.querySelector('.bg-modal').style.display = 'flex';
@@ -234,6 +204,5 @@ window.onload = async function () {
   document.querySelector("body > section > div > div > i").addEventListener('click', function() {
     document.querySelector('.bg-modal').style.display = 'none';
   });
-
 }
 
