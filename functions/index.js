@@ -8,7 +8,7 @@ admin.initializeApp();
 // OVA FUNKCIJA JE VEĆ DEPLOY-ANA I IZVODI SE SVAKO PO URE
 // ZASAD PARSIRA SAMO 4 PORTALA AL CILJ JE DA POSLI PARSIRA SVE MOGUĆE PORTALE
 // ZAKOMENTIRANA JE DA JE NEBI OPET DEPLOY-A
-exports.parseAndSave = functions.pubsub.schedule('every 30 minutes').onRun((context) => {
+exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
     let Parser = require('rss-parser');
     let parser = new Parser({
         customFields: {
