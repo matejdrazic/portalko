@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Portalko - Contact</title>
+        <link rel="stylesheet" href="contact.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">-->
+        <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <a href="http://localhost:5000/#" class="logo">PORTALKO</a>
+            <nav>
+                <ul>
+                    <li><a href="">News</a></li>
+                    <li><a href="">Show</a></li>
+                    <li><a href="">Sport</a></li>
+                    <li><a href="">Life&Style</a></li>
+                    <li><a href="">Sci/Tech</a></li>
+                    <li><a href="">Viral</a></li>
+                    <li><a href="">Video</a></li>
+                    <li><a href="contact.html" class="contact">Contact</a></li>
+                    <li class="logged-out" style="display: none;"><a href="signup.html" class="login">Login</a></li>
+                    <li class="logged-in" style="display: none;"><a href="#" class="logout" id="logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <div class = "container">
+                <div class="contact-info">
+                    <h2>Contact Info</h2>
+                    <ul class="info">
+                        <li>
+                            <span><img src="location.png" alt=""></span>
+                            <span>Ul. Ruđera Boškovića 32, 21000, Split</span>
+                        </li>
+                        <li>
+                            <span><img src="mail1.png" alt=""></span>
+                            <span>portalkoteam@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <h2>Send a Message</h2>
+                    <form class="form-box" action="https://formspree.io/f/mqkgwwvv" method="POST">
+                        <div class="input-box w50">
+                            <input type="text" class="name" name="name" required>
+                            <span>First Name</span>
+                        </div>
+                        <div class="input-box w50">
+                            <input type="text" class="surname" name="surname" required>
+                            <span>Last Name</span>
+                        </div>
+                        <div class="input-box w50">
+                            <input type="email" class="email" name="email" required>
+                            <span>Email Address</span>
+                        </div>
+                        <div class="input-box w100">
+                            <textarea name="message" class="message" required></textarea>
+                            <span>Write your message here...</span>
+                        </div>
+                        <div class="status">
+
+                        </div>
+                        <div class="input-box w100">
+                            <input type="submit" class="submit" value="Send">
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </section>
+    </body>
+    <!--OVO JE ZA POVEZIVANJE NA FIREBASE, NE DIRAJ NIŠTA-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBBJUgei9PSULAKEP5bPeRxNFF5TNDfpDw",
+            authDomain: "portalko-63ded.firebaseapp.com",
+            databaseURL: "https://portalko-63ded-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "portalko-63ded",
+            storageBucket: "portalko-63ded.appspot.com",
+            messagingSenderId: "718458866025",
+            appId: "1:718458866025:web:71c65df3d9c3d2fa5e95f8",
+            measurementId: "G-H0MPX2ZQQD"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+    </script>
+    <!--<script src=".\auth.js"></script>;-->
+    <script src=".\contact.js"></script>
+</html>

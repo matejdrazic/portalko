@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Portalko - deploy</title>
+    <script src=".\parseAndFetch.js"></script>
+    <script src=".\index.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://kit.fontawesome.com/4443080639.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <a href="http://localhost:5000/#" class="logo">PORTALKO</a>
+        <nav>
+            <ul>
+                <li id="Vijesti"><a>Vijesti</a></li>
+                <li id="Magazin"><a>Show</a></li>
+                <li id="Sport"><a>Sport</a></li>
+                <li id="Tech"><a>Sci/Tech</a></li>
+                <li><a href="contact.html" class="contact">Contact</a></li>
+                <li class="logged-out" style="display: none;"><a href="signup.html" class="login">Login</a></li>
+                <li class="logged-in" style="display: none;"><a href="#" class="logout" id="logout">Logout</a></li>
+                <li class="logged-in" style="display: none;"><a id="button" class="button1">Izbor portala</a></li>
+            </ul>
+        </nav>
+
+        <div class="search-container">
+            <input id="search-box" type="text" name="" placeholder="Type to search">
+            <a class="search-btn" href="#">
+            <i class="fas fa-search"></i>
+            </a>
+        </div>
+        
+    </header>
+    <section>
+    <!--<h1 id="naslov">Portalko</h1>-->
+    <table id="table" style="width:60%">
+
+    </table>
+
+    <div class="bg-modal">
+        <div class="modal-content">
+            <i class="fa fa-times delete-button clickable-icon"></i>
+            <h2>Odaberite portale :</h2>
+            <label for="portal1">
+            <input type="checkbox" id="portal" class="Dnevno" value="portal1">
+            Dnevno.hr</label>
+            <label for="portal2">
+            <input type="checkbox" id="portal" class="Index" value="portal2">
+            Index.hr</label>
+            <label for="portal3">
+            <input type="checkbox" id="portal" class="Telegram" value="portal3">
+            Telegram.hr</label>
+            <a href="" class="button">Submit</a>
+        </div>
+    </div>
+
+    </section>
+    <img src="news1.svg" alt="" height="400" width="400" class="svg">
+
+    <!--OVO JE ZA POVEZIVANJE NA FIREBASE, NE DIRAJ NIŠTA-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBBJUgei9PSULAKEP5bPeRxNFF5TNDfpDw",
+            authDomain: "portalko-63ded.firebaseapp.com",
+            databaseURL: "https://portalko-63ded-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "portalko-63ded",
+            storageBucket: "portalko-63ded.appspot.com",
+            messagingSenderId: "718458866025",
+            appId: "1:718458866025:web:71c65df3d9c3d2fa5e95f8",
+            measurementId: "G-H0MPX2ZQQD"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+    </script>
+
+    <!--<script src=".\auth.js"></script>;-->
+
+    <footer>
+        <div class="copyright">
+            <span class="footer-text">Copyright &copy;2021 Portalko. Designed by <span id="designed">TEAM PORTALKO <i class="fas fa-code"></i></span></span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
