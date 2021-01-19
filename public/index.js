@@ -13,7 +13,7 @@ window.onload = async function () {
   const database = firebase.database();
 
   database.ref('vijesti')
-  .limitToFirst(240)
+  .limitToFirst(10)
   .orderByChild('pubdate')
   .once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
@@ -70,7 +70,7 @@ window.onload = async function () {
     category.innerHTML = cl.kategorija;
     guid.innerHTML = cl.link;
     picture.innerHTML = cl.content;
-    paragraph.innerHTML = cl.textContent;
+    paragraph.innerHTML = cl.portal;
 
   }
 
@@ -140,9 +140,9 @@ window.onload = async function () {
     }
   });
 
-  let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
+  /*let loadMore = document.querySelector("#ucitaj-jos").addEventListener('click', e => {
     dohvatDesetClanaka();
-  });
+  });*/
 
   //logout
   const logout = document.querySelector('#logout');
