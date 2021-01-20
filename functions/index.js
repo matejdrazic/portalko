@@ -51,7 +51,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: item.categories,
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Index'
+                portal: 'Index',
+                pop: 0
             });
             counter++;
         });
@@ -63,7 +64,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: item.categories,
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Dnevno'
+                portal: 'Dnevno',
+                pop: 0
             });
             counter++;
         });
@@ -75,7 +77,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: item.categories,
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Telegram'
+                portal: 'Telegram',
+                pop: 0
             });
             counter++;
         });
@@ -87,7 +90,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Sport",
                 content: item.enclosure,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Telegram'
+                portal: 'Telegram',
+                pop: 0
             });
             counter++;
         });
@@ -99,7 +103,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Vijesti",
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: '24sata'
+                portal: '24sata',
+                pop: 0
             });
             counter++;
         });
@@ -111,7 +116,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Sport",
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: '24sata'
+                portal: '24sata',
+                pop: 0
             });
             counter++;
         });
@@ -123,7 +129,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Tech",
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: '24sata'
+                portal: '24sata',
+                pop: 0
             });
             counter++;
         });
@@ -135,7 +142,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Show",
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: '24sata'
+                portal: '24sata',
+                pop: 0
             });
             counter++;
         });
@@ -147,7 +155,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Lifestyle",
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: '24sata'
+                portal: '24sata',
+                pop: 0
             });
             counter++;
         });
@@ -159,7 +168,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: item.categories,
                 content: item.content,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Dnevnik'
+                portal: 'Dnevnik',
+                pop: 0
             });
             counter++;
         });
@@ -171,7 +181,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: item.categories,
                 content: item.enclosure,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Bug'
+                portal: 'Bug',
+                pop: 0
             });
             counter++;
         });
@@ -183,7 +194,8 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Vijesti",
                 content: item.enclosure,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Slobodna'
+                portal: 'Slobodna',
+                pop: 0
             });
             counter++;
         });
@@ -195,11 +207,19 @@ exports.parseAndSave = functions.pubsub.schedule('every 5 minutes').onRun((conte
                 kategorija: "Biznis",
                 content: item.enclosure,
                 pubdate: new Date(item.pubDate).getTime(),
-                portal: 'Slobodna'
+                portal: 'Slobodna',
+                pop: 0
             });
             counter++;
         });
 
     }
     check();
+});
+
+exports.popClanak = functions.https.onCall((data, context) => {
+    const clakan = admin.database().ref('/vijesti' + data.id);
+    clakan.update({
+        pop: admin.database().ServerValue.increment(1)
+    });
 });
