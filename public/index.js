@@ -47,58 +47,6 @@ window.onload = async function () {
     paragraph.innerHTML = cl.portal;
   }
 
-  document.querySelector('#Sport').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Sport')
-          News(clanak.val());
-      });
-    });
-  });
-
-  document.querySelector('#Tech').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Tech')
-          News(clanak.val());
-      });
-    });
-  });
-
-  document.querySelector('#Magazin').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
-          News(clanak.val());
-      });
-    });
-  });
-
-  document.querySelector('#Vijesti').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Vijesti')
-          News(clanak.val());
-      });
-    });
-  });
-
    //search container pretrazivac
   document.querySelector("#search-box").addEventListener("keyup", e => {
     let query = e.currentTarget.value;
@@ -128,19 +76,152 @@ window.onload = async function () {
   auth.onAuthStateChanged(user => {
     if (user) {
       //get data
-      db.collection('portali').doc(user.email).get().then(snapshot_firestore => { 
+      db.collection('portali').doc(user.email).get().then(snapshot_firestore => {
         console.log("Logirani korisnik " + user.email + " je odabrao ove portale :" + snapshot_firestore.data().choosen);
         setupUI(user);
 
-        database.ref('vijesti').once("value", function (snapshot) {
-          snapshot.forEach((clanak)=>{
-            for(let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
-              if(clanak.val().portal == snapshot_firestore.data().choosen[i])
-                News(clanak.val());
-            }
+        if (snapshot_firestore.data().choosen.length != 0) {
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i])
+                  News(clanak.val());
+              }
+            });
+          });
+
+        //tabovi
+        document.querySelector('#Sport').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Sport')
+                  News(clanak.val());
+              }
+            });
           });
         });
+
+        document.querySelector('#Tech').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Tech')
+                  News(clanak.val());
+              }
+            });
+          });
+        });
+
+        document.querySelector('#Magazin').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Magazin')
+                  News(clanak.val());
+              }
+            });
+          });
+        });
+
+        document.querySelector('#Vijesti').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Vijesti')
+                  News(clanak.val());
+              }
+            });
+          });
+        });
+
+
+
+        } else {
+          database.ref('vijesti')
+            .orderByChild('pubdate')
+            .limitToFirst(10)
+            .once("value", function (snapshot) {
+              snapshot.forEach((clanak) => {
+                News(clanak.val());
+              });
+            });
+
+            document.querySelector('#Sport').addEventListener('click', () => {
+              var paras = document.getElementsByClassName('clanak');
+              while (paras[0]) {
+                paras[0].parentNode.removeChild(paras[0]);
+              }
+              database.ref('vijesti').once("value", function (snapshot) {
+                snapshot.forEach((clanak)=>{
+                  if(clanak.val().kategorija == 'Sport')
+                    News(clanak.val());
+                });
+              });
+            });
+          
+            document.querySelector('#Tech').addEventListener('click', () => {
+              var paras = document.getElementsByClassName('clanak');
+              while (paras[0]) {
+                paras[0].parentNode.removeChild(paras[0]);
+              }
+              database.ref('vijesti').once("value", function (snapshot) {
+                snapshot.forEach((clanak)=>{
+                  if(clanak.val().kategorija == 'Tech')
+                    News(clanak.val());
+                });
+              });
+            });
+          
+            document.querySelector('#Magazin').addEventListener('click', () => {
+              var paras = document.getElementsByClassName('clanak');
+              while (paras[0]) {
+                paras[0].parentNode.removeChild(paras[0]);
+              }
+              database.ref('vijesti').once("value", function (snapshot) {
+                snapshot.forEach((clanak)=>{
+                  if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+                    News(clanak.val());
+                });
+              });
+            });
+          
+            document.querySelector('#Vijesti').addEventListener('click', () => {
+              var paras = document.getElementsByClassName('clanak');
+              while (paras[0]) {
+                paras[0].parentNode.removeChild(paras[0]);
+              }
+              database.ref('vijesti').once("value", function (snapshot) {
+                snapshot.forEach((clanak)=>{
+                  if(clanak.val().kategorija == 'Vijesti')
+                    News(clanak.val());
+                });
+              });
+            });
+          
+        }
+
+        
+
       });
+
+
 
       //spremanje u bazu odabranih portala svaki put kad se stisne submit u formi
       document.querySelector("body > section > div > div > a").addEventListener('click', (e) => {
@@ -148,7 +229,7 @@ window.onload = async function () {
         document.querySelector('.bg-modal').style.display = 'none';
         let markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
         let odabrani = [];
-        for(let i = 0; i < markedCheckbox.length; i++) {
+        for (let i = 0; i < markedCheckbox.length; i++) {
           odabrani[i] = markedCheckbox[i].className;
         }
 
@@ -158,27 +239,80 @@ window.onload = async function () {
         db.collection("portali").doc(user.email).set({
           choosen: odabrani,
         })
-        .then(function() {
-          console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-          console.error("Error writing document: ", error);
-        });
+          .then(function () {
+            console.log("Document successfully written!");
+          })
+          .catch(function (error) {
+            console.error("Error writing document: ", error);
+          });
 
-        
-        setTimeout(function(){ location.reload();}, 50)
+        setTimeout(function () { location.reload(); }, 500)
 
       });
 
     } else {
       database.ref('vijesti')
-      .limitToFirst(10)
-      .orderByChild('pubdate')
-      .once("value", function (snapshot) {
-          snapshot.forEach((clanak)=>{
-              News(clanak.val());
+        .orderByChild('pubdate')
+        .limitToFirst(10)
+        .once("value", function (snapshot) {
+          snapshot.forEach((clanak) => {
+            News(clanak.val());
           });
-      });
+        });
+
+        document.querySelector('#Sport').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak)=>{
+              if(clanak.val().kategorija == 'Sport')
+                News(clanak.val());
+            });
+          });
+        });
+      
+        document.querySelector('#Tech').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak)=>{
+              if(clanak.val().kategorija == 'Tech')
+                News(clanak.val());
+            });
+          });
+        });
+      
+        document.querySelector('#Magazin').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak)=>{
+              if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+                News(clanak.val());
+            });
+          });
+        });
+      
+        document.querySelector('#Vijesti').addEventListener('click', () => {
+          var paras = document.getElementsByClassName('clanak');
+          while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+          }
+          database.ref('vijesti').once("value", function (snapshot) {
+            snapshot.forEach((clanak)=>{
+              if(clanak.val().kategorija == 'Vijesti')
+                News(clanak.val());
+            });
+          });
+        });
+
+
       console.log('User logged out');
       setupUI();
     }
@@ -205,4 +339,3 @@ window.onload = async function () {
     document.querySelector('.bg-modal').style.display = 'none';
   });
 }
-
