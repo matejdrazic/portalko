@@ -13,7 +13,7 @@ window.onload = async function () {
   const database = firebase.database();
 
   database.ref('vijesti')
-  .limitToFirst(10)
+  .limitToLast(12)
   .orderByChild('pubdate')
   .once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
@@ -38,7 +38,20 @@ window.onload = async function () {
 
   function News(cl) {
 
-    row = document.createElement("div");
+    table.innerHTML += `
+    <a href=${cl.link} target='blank'>
+    <div class="clanak">
+    <div id="slika-clanka">
+    ${cl.content}
+    </div>
+    <div id="sadrzaj-clanka"><h2 id="naslov-clanka">${cl.naslov}</h2>
+    <p id="opis-clanka">Index</p><small id="kategorija-clanka">${cl.kategorija}</small>
+    </div>
+    </div>
+    </a>
+    `
+
+    /* row = document.createElement("div");
     row.classList = "clanak";
     table.appendChild(row);
 
@@ -70,15 +83,13 @@ window.onload = async function () {
     category.innerHTML = cl.kategorija;
     guid.innerHTML = cl.link;
     picture.innerHTML = cl.content;
-    paragraph.innerHTML = cl.portal;
+    paragraph.innerHTML = cl.portal; */
 
   }
 
   document.querySelector('#Sport').addEventListener('click', () => {
     var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
+    table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
         if(clanak.val().kategorija == 'Sport')
@@ -89,9 +100,7 @@ window.onload = async function () {
 
   document.querySelector('#Tech').addEventListener('click', () => {
     var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
+    table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
         if(clanak.val().kategorija == 'Tech')
@@ -102,9 +111,7 @@ window.onload = async function () {
 
   document.querySelector('#Magazin').addEventListener('click', () => {
     var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
+    table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
         if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
@@ -115,9 +122,7 @@ window.onload = async function () {
 
   document.querySelector('#Vijesti').addEventListener('click', () => {
     var paras = document.getElementsByClassName('clanak');
-    while (paras[0]) {
-      paras[0].parentNode.removeChild(paras[0]);
-    }
+    table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
         if(clanak.val().kategorija == 'Vijesti')
