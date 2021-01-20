@@ -13,13 +13,17 @@ window.onload = async function () {
   const database = firebase.database();
 
   database.ref('vijesti')
-  .limitToLast(12)
-  .orderByChild('pubdate')
-  .once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-          News(clanak.val());
+    .orderByChild('pubdate')
+    .limitToLast(12)
+    .once("value", function (snapshot) {
+      let requests = [];
+      snapshot.forEach((clanak) => {
+        News(clanak.val());
+        requests.push({
+          id: clanak.id
+        })
       });
-  });
+    });
 
   /* function get() {
     return new Promise((resolve, reject) => {
@@ -35,103 +39,83 @@ window.onload = async function () {
     console.log(cl);
   }); */
 
-
   function News(cl) {
 
+    let vrijeme = new Date();
+    let sada = vrijeme.getTime();
+    let vrijemeIzdavanjaUMS = sada - cl.pubdate;
+    let vrijemeIzdavanjeUM = (vrijemeIzdavanjaUMS / 60000);
+    console.log(Math.round(vrijemeIzdavanjeUM))
+    let mathRound = Math.round(vrijemeIzdavanjeUM);
+
     table.innerHTML += `
-    <a href=${cl.link} target='blank'>
+    <a href=${cl.link} target='blank' onClick=''>
     <div class="clanak">
     <div id="slika-clanka">
     ${cl.content.url ? `<img src=${cl.content.url} />` : cl.content}
     </div>
     <div id="sadrzaj-clanka"><h2 id="naslov-clanka">${cl.naslov}</h2>
-    <p id="opis-clanka">${cl.portal}</p><small id="kategorija-clanka">${cl.kategorija}</small>
+    <p id="opis-clanka">${cl.portal}      ${mathRound} min</p>
+    <small id="kategorija-clanka">${cl.kategorija}</small>
     </div>
     </div>
-    </a>
-    `
+    </a>`
+    
+  }
 
-    /* row = document.createElement("div");
-    row.classList = "clanak";
-    table.appendChild(row);
-
-    picture = document.createElement("div");
-    picture.id = "slika-clanka";
-    row.appendChild(picture);
-
-    content = document.createElement("div");
-    content.id = "sadrzaj-clanka";
-    row.appendChild(content);
-
-    title = document.createElement("h2");
-    title.id = "naslov-clanka";
-    content.appendChild(title);
-
-    paragraph = document.createElement("p");
-    paragraph.id = "opis-clanka";
-    content.appendChild(paragraph);
-
-    guid = document.createElement("a");
-    guid.id = "link-clanka";
-    content.appendChild(guid);
-
-    category = document.createElement("small");
-    category.id = "kategorija-clanka";
-    content.appendChild(category);
-
-    title.innerHTML = cl.naslov;
-    category.innerHTML = cl.kategorija;
-    guid.innerHTML = cl.link;
-    picture.innerHTML = cl.content;
-    paragraph.innerHTML = cl.portal; */
-
+  function kliknutiClanak(id) {
+    console.log(id);
   }
 
   document.querySelector('#Sport').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    table.innerHTML="";
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport')
-          News(clanak.val());
+    table.innerHTML = "";
+    database.ref('vijesti')
+      .orderByChild('pubdate')
+      .once("value", function (snapshot) {
+        snapshot.forEach((clanak) => {
+          if (clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport')
+            News(clanak.val());
+        });
       });
-    });
   });
 
   document.querySelector('#Tech').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    table.innerHTML="";
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Tech')
-          News(clanak.val());
+    table.innerHTML = "";
+    database.ref('vijesti')
+      .orderByChild('pubdate')
+      .once("value", function (snapshot) {
+        snapshot.forEach((clanak) => {
+          if (clanak.val().kategorija == 'Tech')
+            News(clanak.val());
+        });
       });
-    });
   });
 
   document.querySelector('#Magazin').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    table.innerHTML="";
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci')
-          News(clanak.val());
+    table.innerHTML = "";
+    database.ref('vijesti')
+    .orderByChild('pubdate')
+    .once("value", function (snapshot) {
+        snapshot.forEach((clanak) => {
+          if (clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci')
+            News(clanak.val());
+        });
       });
-    });
   });
 
   document.querySelector('#Vijesti').addEventListener('click', () => {
-    var paras = document.getElementsByClassName('clanak');
-    table.innerHTML="";
-    database.ref('vijesti').once("value", function (snapshot) {
-      snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Vijesti')
+    table.innerHTML = "";
+    database.ref('vijesti')
+    .orderByChild('pubdate')
+    .once("value", function (snapshot) {
+      snapshot.forEach((clanak) => {
+        if (clanak.val().kategorija == 'Vijesti' || clanak.val().kategorija[0] == 'Politika & Kriminal')
           News(clanak.val());
       });
     });
   });
 
-   //search container pretrazivac
+  //search container pretrazivac
   document.querySelector("#search-box").addEventListener("keyup", e => {
     let query = e.currentTarget.value;
 
@@ -156,7 +140,7 @@ window.onload = async function () {
     auth.signOut();
   });
 
-  
+
   //skrivanje i stvaranje elemenata ovisno o statusu loggedin/loggedout
   const loggedOutLink = document.querySelector('.logged-out');
   const loggedInLinks = document.querySelectorAll('.logged-in');
@@ -166,7 +150,7 @@ window.onload = async function () {
   auth.onAuthStateChanged(user => {
     if (user) {
       //get data
-      db.collection('portali').doc(user.email).get().then(snapshot => { 
+      db.collection('portali').doc(user.email).get().then(snapshot => {
         console.log("Logirani korisnik " + user.email + " je odabrao ove portale :" + snapshot.data().choosen);
         setupUI(user);
       });
@@ -178,7 +162,7 @@ window.onload = async function () {
         document.querySelector('.bg-modal').style.display = 'none';
         let markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
         let odabrani = [];
-        for(let i = 0; i < markedCheckbox.length; i++) {
+        for (let i = 0; i < markedCheckbox.length; i++) {
           odabrani[i] = markedCheckbox[i].className;
         }
 
@@ -188,12 +172,12 @@ window.onload = async function () {
         db.collection("portali").doc(user.email).set({
           choosen: odabrani,
         })
-        .then(function() {
-          console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-          console.error("Error writing document: ", error);
-        });
+          .then(function () {
+            console.log("Document successfully written!");
+          })
+          .catch(function (error) {
+            console.error("Error writing document: ", error);
+          });
 
       });
 
@@ -205,7 +189,7 @@ window.onload = async function () {
 
   //funkcija koja miče/dodaje botune ovisno o tome jeli iko logiran
   const setupUI = (user) => {
-    if(user) {
+    if (user) {
       // toggle UI elements
       loggedInLinks.forEach(item => item.style.display = "block");
       loggedOutLink.style.display = 'none';
@@ -217,11 +201,11 @@ window.onload = async function () {
 
 
   //forma za izbor portala
-  document.getElementById('button').addEventListener('click', function() {
+  document.getElementById('button').addEventListener('click', function () {
     document.querySelector('.bg-modal').style.display = 'flex';
   });
 
-  document.querySelector("body > section > div > div > i").addEventListener('click', function() {
+  document.querySelector("body > section > div > div > i").addEventListener('click', function () {
     document.querySelector('.bg-modal').style.display = 'none';
   });
 
