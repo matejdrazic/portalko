@@ -42,10 +42,10 @@ window.onload = async function () {
     <a href=${cl.link} target='blank'>
     <div class="clanak">
     <div id="slika-clanka">
-    ${cl.content}
+    ${cl.content.url ? `<img src=${cl.content.url} />` : cl.content}
     </div>
     <div id="sadrzaj-clanka"><h2 id="naslov-clanka">${cl.naslov}</h2>
-    <p id="opis-clanka">Index</p><small id="kategorija-clanka">${cl.kategorija}</small>
+    <p id="opis-clanka">${cl.portal}</p><small id="kategorija-clanka">${cl.kategorija}</small>
     </div>
     </div>
     </a>
@@ -92,7 +92,7 @@ window.onload = async function () {
     table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Sport')
+        if(clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport')
           News(clanak.val());
       });
     });
@@ -114,7 +114,7 @@ window.onload = async function () {
     table.innerHTML="";
     database.ref('vijesti').once("value", function (snapshot) {
       snapshot.forEach((clanak)=>{
-        if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+        if(clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci')
           News(clanak.val());
       });
     });
