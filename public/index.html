@@ -17,6 +17,8 @@
                 <li id="Magazin"><a>Show</a></li>
                 <li id="Sport"><a>Sport</a></li>
                 <li id="Tech"><a>Sci/Tech</a></li>
+                <li id="Showbiz"><a>Showbiz</a></li>
+                <li id="Biznis"><a>Biznis</a></li>
                 <li><a href="contact.html" class="contact">Contact</a></li>
                 <li class="logged-out" style="display: none;"><a href="signup.html" class="login">Login</a></li>
                 <li class="logged-in" style="display: none;"><a href="#" class="logout" id="logout">Logout</a></li>
@@ -34,29 +36,39 @@
     </header>
     <section>
 
-    <table id="table" style="width:60%">
+    <!--Ovdi će ić članci-->
+    <div class="row" id="table">
 
-    </table>
+    </div>
 
     <div class="bg-modal">
         <div class="modal-content">
             <i class="fa fa-times delete-button clickable-icon"></i>
             <h2>Odaberite portale :</h2>
             <label for="portal1">
-            <input type="checkbox" id="portal" class="Dnevno" value="portal1">
+            <input type="checkbox" id="portal" class="Dnevno.hr" value="portal1">
             Dnevno.hr</label>
-            <label for="portal2">
-            <input type="checkbox" id="portal" class="Index" value="portal2">
-            Index.hr</label>
             <label for="portal3">
-            <input type="checkbox" id="portal" class="Telegram" value="portal3">
+            <input type="checkbox" id="portal" class="Telegram.hr" value="portal3">
             Telegram.hr</label>
+            <label for="portal4">
+            <input type="checkbox" id="portal" class="slobodnadalmacija.hr" value="portal4">
+            SlobodnaDalmacija.hr</label>
+            <label for="portal5">
+            <input type="checkbox" id="portal" class="bug.hr" value="portal5">
+            Bug.hr</label>
+            <label for="portal6">
+            <input type="checkbox" id="portal" class="dnevnik.hr" value="portal6">
+            Dnevnik.hr</label>
+            <label for="portal7">
+            <input type="checkbox" id="portal" class="24sata.hr" value="portal7">
+            24sata.hr</label>
             <a href="" class="button">Submit</a>
         </div>
     </div>
 
     </section>
-    <img src="news1.svg" alt="" height="400" width="400" class="svg">
+    <!--<img src="news1.svg" alt="" height="400" width="400" class="svg">-->
 
     <!--OVO JE ZA POVEZIVANJE NA FIREBASE, NE DIRAJ NIŠTA-->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -89,11 +101,11 @@
     </script>
     <script src=".\index.js"></script>
 
-    <footer>
+    <!--<footer>
         <div class="copyright">
             <span class="footer-text">Copyright &copy;2021 Portalko. Designed by <span id="designed">TEAM PORTALKO <i class="fas fa-code"></i></span></span>
         </div>
-    </footer>
+    </footer>-->
 
 </body>
 

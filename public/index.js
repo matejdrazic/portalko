@@ -1,50 +1,29 @@
 window.onload = async function () {
   let table = document.getElementById("table");
-  let row;
-  let picture;
-  let content;
-  let title;
-  let paragraph;
-  let guid;
-  let category;
 
   const database = firebase.database();
 
   function News(cl) {
 
-    row = document.createElement("div");
-    row.classList = "clanak";
-    table.appendChild(row);
+    let vrijeme = new Date();
+    let sada = vrijeme.getTime();
+    let vrijemeIzdavanjaUMS = sada - cl.pubdate;
+    let vrijemeIzdavanjeUM = (vrijemeIzdavanjaUMS / 60000);
+    //console.log(Math.round(vrijemeIzdavanjeUM))
+    let mathRound = Math.round(vrijemeIzdavanjeUM);
 
-    picture = document.createElement("div");
-    picture.id = "slika-clanka";
-    row.appendChild(picture);
-
-    content = document.createElement("div");
-    content.id = "sadrzaj-clanka";
-    row.appendChild(content);
-
-    title = document.createElement("h2");
-    title.id = "naslov-clanka";
-    content.appendChild(title);
-
-    paragraph = document.createElement("p");
-    paragraph.id = "opis-clanka";
-    content.appendChild(paragraph);
-
-    guid = document.createElement("a");
-    guid.id = "link-clanka";
-    content.appendChild(guid);
-
-    category = document.createElement("small");
-    category.id = "kategorija-clanka";
-    content.appendChild(category);
-
-    title.innerHTML = cl.naslov;
-    category.innerHTML = cl.kategorija;
-    guid.innerHTML = cl.link;
-    picture.innerHTML = cl.content;
-    paragraph.innerHTML = cl.portal;
+    table.innerHTML += `
+    <a href=${cl.link} target='blank' onClick=''>
+    <div class="clanak">
+    <div id="slika-clanka">
+    ${cl.content.url ? `<img src=${cl.content.url} />` : cl.content}
+    </div>
+    <div id="sadrzaj-clanka"><h2 id="naslov-clanka">${cl.naslov}</h2>
+    <p id="opis-clanka">${cl.portal}      ${mathRound} min</p>
+    <small id="kategorija-clanka">${cl.kategorija}</small>
+    </div>
+    </div>
+    </a>`
   }
 
    //search container pretrazivac
@@ -92,44 +71,41 @@ window.onload = async function () {
 
         //tabovi
         document.querySelector('#Sport').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak) => {
-              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
-                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Sport')
-                  News(clanak.val());
-              }
+          table.innerHTML = "";
+          database.ref('vijesti')
+            .orderByChild('pubdate')
+            .once("value", function (snapshot) {
+              snapshot.forEach((clanak) => {
+                for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                  if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport'))
+                    News(clanak.val());
+                }
+              });
             });
-          });
         });
 
         document.querySelector('#Tech').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak) => {
-              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
-                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Tech')
-                  News(clanak.val());
-              }
+          table.innerHTML = "";
+          database.ref('vijesti')
+            .orderByChild('pubdate')
+            .once("value", function (snapshot) {
+              snapshot.forEach((clanak) => {
+                for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                  if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija == 'Tech' || clanak.val().kategorija[0] == 'Tehnologije' || clanak.val().kategorija[0] == 'Znanost'))
+                    News(clanak.val());
+                }
+              });
             });
-          });
         });
 
         document.querySelector('#Magazin').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
+          table.innerHTML = "";
+          database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
             snapshot.forEach((clanak) => {
               for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
-                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Magazin')
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci' || clanak.val().kategorija[0] == 'Magazin'))
                   News(clanak.val());
               }
             });
@@ -137,14 +113,41 @@ window.onload = async function () {
         });
 
         document.querySelector('#Vijesti').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
+          table.innerHTML = "";
+          database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
             snapshot.forEach((clanak) => {
               for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
-                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && clanak.val().kategorija == 'Vijesti')
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija == 'Vijesti' || clanak.val().kategorija[0] == 'Politika & Kriminal' || clanak.val().kategorija[0] == 'Hrvatska'))
+                  News(clanak.val());
+              }
+            });
+          });
+        });
+
+        document.querySelector('#Showbiz').addEventListener('click', () => {
+          table.innerHTML = "";
+          database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija == 'Lifestyle' || clanak.val().kategorija == 'Show'))
+                  News(clanak.val());
+              }
+            });
+          });
+        });
+
+        document.querySelector('#Biznis').addEventListener('click', () => {
+          table.innerHTML = "";
+          database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              for (let i = 0; i < snapshot_firestore.data().choosen.length; i++) {
+                if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija[0] == 'Biznis' || clanak.val().kategorija == 'Biznis'))
                   News(clanak.val());
               }
             });
@@ -156,7 +159,7 @@ window.onload = async function () {
         } else {
           database.ref('vijesti')
             .orderByChild('pubdate')
-            .limitToFirst(10)
+            .limitToLast(18)
             .once("value", function (snapshot) {
               snapshot.forEach((clanak) => {
                 News(clanak.val());
@@ -164,53 +167,73 @@ window.onload = async function () {
             });
 
             document.querySelector('#Sport').addEventListener('click', () => {
-              var paras = document.getElementsByClassName('clanak');
-              while (paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
-              }
-              database.ref('vijesti').once("value", function (snapshot) {
-                snapshot.forEach((clanak)=>{
-                  if(clanak.val().kategorija == 'Sport')
-                    News(clanak.val());
+              table.innerHTML = "";
+              database.ref('vijesti')
+                .orderByChild('pubdate')
+                .once("value", function (snapshot) {
+                  snapshot.forEach((clanak) => {
+                    if (clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport')
+                      News(clanak.val());
+                  });
                 });
-              });
             });
-          
+    
             document.querySelector('#Tech').addEventListener('click', () => {
-              var paras = document.getElementsByClassName('clanak');
-              while (paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
-              }
-              database.ref('vijesti').once("value", function (snapshot) {
-                snapshot.forEach((clanak)=>{
-                  if(clanak.val().kategorija == 'Tech')
-                    News(clanak.val());
+              table.innerHTML = "";
+              database.ref('vijesti')
+                .orderByChild('pubdate')
+                .once("value", function (snapshot) {
+                  snapshot.forEach((clanak) => {
+                    if (clanak.val().kategorija == 'Tech' || clanak.val().kategorija[0] == 'Tehnologije' || clanak.val().kategorija[0] == 'Znanost')
+                      News(clanak.val());
+                  });
                 });
-              });
             });
-          
+    
             document.querySelector('#Magazin').addEventListener('click', () => {
-              var paras = document.getElementsByClassName('clanak');
-              while (paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
-              }
-              database.ref('vijesti').once("value", function (snapshot) {
-                snapshot.forEach((clanak)=>{
-                  if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+              table.innerHTML = "";
+              database.ref('vijesti')
+              .orderByChild('pubdate')
+              .once("value", function (snapshot) {
+                snapshot.forEach((clanak) => {
+                  if (clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci' || clanak.val().kategorija[0] == 'Magazin')
                     News(clanak.val());
                 });
               });
             });
-          
+    
             document.querySelector('#Vijesti').addEventListener('click', () => {
-              var paras = document.getElementsByClassName('clanak');
-              while (paras[0]) {
-                paras[0].parentNode.removeChild(paras[0]);
-              }
-              database.ref('vijesti').once("value", function (snapshot) {
-                snapshot.forEach((clanak)=>{
-                  if(clanak.val().kategorija == 'Vijesti')
-                    News(clanak.val());
+              table.innerHTML = "";
+              database.ref('vijesti')
+              .orderByChild('pubdate')
+              .once("value", function (snapshot) {
+                snapshot.forEach((clanak) => {
+                    if (clanak.val().kategorija == 'Vijesti' || clanak.val().kategorija[0] == 'Politika & Kriminal' || clanak.val().kategorija[0] == 'Hrvatska')
+                      News(clanak.val());
+                });
+              });
+            });
+    
+            document.querySelector('#Showbiz').addEventListener('click', () => {
+              table.innerHTML = "";
+              database.ref('vijesti')
+              .orderByChild('pubdate')
+              .once("value", function (snapshot) {
+                snapshot.forEach((clanak) => {
+                    if (clanak.val().kategorija == 'Lifestyle' || clanak.val().kategorija == 'Show')
+                      News(clanak.val());
+                });
+              });
+            });
+    
+            document.querySelector('#Biznis').addEventListener('click', () => {
+              table.innerHTML = "";
+              database.ref('vijesti')
+              .orderByChild('pubdate')
+              .once("value", function (snapshot) {
+                snapshot.forEach((clanak) => {
+                    if (clanak.val().portal == snapshot_firestore.data().choosen[i] && (clanak.val().kategorija[0] == 'Biznis' || clanak.val().kategorija == 'Biznis'))
+                      News(clanak.val());
                 });
               });
             });
@@ -252,65 +275,85 @@ window.onload = async function () {
 
     } else {
       database.ref('vijesti')
+      .orderByChild('pubdate')
+      .limitToLast(18)
+      .once("value", function (snapshot) {
+        snapshot.forEach((clanak) => {
+          News(clanak.val());
+        });
+      });
+
+      document.querySelector('#Sport').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              if (clanak.val().kategorija == 'Sport' || clanak.val().kategorija[0] == 'Sport')
+                News(clanak.val());
+            });
+          });
+      });
+
+      document.querySelector('#Tech').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
+          .orderByChild('pubdate')
+          .once("value", function (snapshot) {
+            snapshot.forEach((clanak) => {
+              if (clanak.val().kategorija == 'Tech' || clanak.val().kategorija[0] == 'Tehnologije' || clanak.val().kategorija[0] == 'Znanost')
+                News(clanak.val());
+            });
+          });
+      });
+
+      document.querySelector('#Magazin').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
         .orderByChild('pubdate')
-        .limitToFirst(10)
         .once("value", function (snapshot) {
           snapshot.forEach((clanak) => {
-            News(clanak.val());
+            if (clanak.val().kategorija[0] == 'Život' || clanak.val().kategorija == 'Ljubimci' || clanak.val().kategorija[0] == 'Magazin')
+              News(clanak.val());
           });
         });
+      });
 
-        document.querySelector('#Sport').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak)=>{
-              if(clanak.val().kategorija == 'Sport')
+      document.querySelector('#Vijesti').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
+        .orderByChild('pubdate')
+        .once("value", function (snapshot) {
+          snapshot.forEach((clanak) => {
+              if (clanak.val().kategorija == 'Vijesti' || clanak.val().kategorija[0] == 'Politika & Kriminal' || clanak.val().kategorija[0] == 'Hrvatska')
                 News(clanak.val());
-            });
           });
         });
-      
-        document.querySelector('#Tech').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak)=>{
-              if(clanak.val().kategorija == 'Tech')
+      });
+
+      document.querySelector('#Showbiz').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
+        .orderByChild('pubdate')
+        .once("value", function (snapshot) {
+          snapshot.forEach((clanak) => {
+              if (clanak.val().kategorija == 'Lifestyle' || clanak.val().kategorija == 'Show')
                 News(clanak.val());
-            });
           });
         });
-      
-        document.querySelector('#Magazin').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak)=>{
-              if(clanak.val().kategorija == 'Magazin' || clanak.val().kategorija == 'Ljubimci')
+      });
+
+      document.querySelector('#Biznis').addEventListener('click', () => {
+        table.innerHTML = "";
+        database.ref('vijesti')
+        .orderByChild('pubdate')
+        .once("value", function (snapshot) {
+          snapshot.forEach((clanak) => {
+              if (clanak.val().kategorija[0] == 'Biznis' || clanak.val().kategorija == 'Biznis')
                 News(clanak.val());
-            });
           });
         });
-      
-        document.querySelector('#Vijesti').addEventListener('click', () => {
-          var paras = document.getElementsByClassName('clanak');
-          while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-          }
-          database.ref('vijesti').once("value", function (snapshot) {
-            snapshot.forEach((clanak)=>{
-              if(clanak.val().kategorija == 'Vijesti')
-                News(clanak.val());
-            });
-          });
-        });
+      });
 
 
       console.log('User logged out');
